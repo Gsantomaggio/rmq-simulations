@@ -21,7 +21,5 @@ spec:
         - name: go-stream-perf-test
           imagePullPolicy: Always
           image: pivotalrabbitmq/go-stream-perf-test
-          env:
-          - name: uris
-            value: "aaaa"
+          args: ["--uris rabbitmq-stream://guest:guest@myhost:5552/"]
          
