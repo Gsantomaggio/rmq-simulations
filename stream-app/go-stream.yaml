@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rmq-go-stream-client
+  labels:
+    app: rmq-go-stream-client
+spec:
+  selector:
+    matchLabels:
+      app: rmq-go-stream-client
+  revisionHistoryLimit: 10
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: rmq-go-stream-client
+    spec:
+      containers:
+        - name: go-stream-perf-test
+          imagePullPolicy: Always
+          image: pivotalrabbitmq/go-stream-perf-test
+         
