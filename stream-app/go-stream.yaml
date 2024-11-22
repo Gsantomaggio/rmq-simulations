@@ -21,5 +21,5 @@ spec:
         - name: go-stream-perf-test
           imagePullPolicy: Always
           image: pivotalrabbitmq/go-stream-perf-test
-          args: ["--uris rabbitmq-stream://guest:guest@myhost:5552/"]
+          args: ["--uris rabbitmq-stream://test:test@stream-clients.performance-tests.svc.cluster.local:5552/"]
          
