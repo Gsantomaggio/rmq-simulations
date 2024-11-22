@@ -9,9 +9,7 @@ spec:
     matchLabels:
       app: rmq-go-stream-client
   revisionHistoryLimit: 10
-  replicas: 1
-  strategy:
-    type: RollingUpdate
+  replicas: 0
   template:
     metadata:
       labels:
