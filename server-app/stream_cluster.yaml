@@ -6,7 +6,7 @@ metadata:
 apiVersion: rabbitmq.com/v1beta1
 kind: RabbitmqCluster
 metadata:
-  name: stream-clients
+  name: stream-test
   namespace: gabriele
 spec:
   replicas: 3
@@ -17,11 +17,14 @@ spec:
     secretName: tls-secret
   resources:
     requests:
-      cpu: 4
-      memory: 3Gi
+      cpu: 8
+      memory: 4Gi
     limits:
-      cpu: 4
-      memory: 3Gi
+      cpu: 8
+      memory: 4Gi
+  persistence:
+    storageClassName: standard-rwo
+    storage: "100Gi"
   rabbitmq:
     additionalPlugins:
       - rabbitmq_stream
