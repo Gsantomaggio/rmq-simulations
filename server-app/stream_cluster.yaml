@@ -1,20 +1,20 @@
-# apiVersion: v1
-# kind: Namespace
-# metadata:
-  # name: stream-clients-test
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: gabriele
 ---
 apiVersion: rabbitmq.com/v1beta1
 kind: RabbitmqCluster
 metadata:
   name: stream-clients
-  namespace: performance-tests
+  namespace: gabriele
 spec:
   replicas: 3
   image: rabbitmq:4-management
   service:
     type: LoadBalancer
-  # tls:
-    # secretName: tls-secret
+  tls:
+    secretName: tls-secret
   resources:
     requests:
       cpu: 4
