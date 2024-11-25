@@ -9,7 +9,7 @@ spec:
     matchLabels:
       app: rmq-go-stream-client
   revisionHistoryLimit: 10
-  replicas: 1
+  replicas: 4
   template:
     metadata:
       labels:
@@ -19,5 +19,5 @@ spec:
         - name: go-stream-perf-test
           imagePullPolicy: Always
           image: pivotalrabbitmq/go-stream-perf-test
-          args: ["--uris", "rabbitmq-stream://test:test@stream-clients.gabriele.svc.cluster.local:5552/"]
+          args: ["--publishers", "1", "--consumers", "5", "--rate","1000","--uris", "rabbitmq-stream://test:test@stream-clients.gabriele.svc.cluster.local:5552/"]
          
