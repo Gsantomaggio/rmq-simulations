@@ -1,23 +1,46 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: rmq-go-stream-client
+  name: rmq-go-stream-client-consumers
   labels:
-    app: rmq-go-stream-client
+    app: rmq-go-stream-client-consumers
 spec:
   selector:
     matchLabels:
-      app: rmq-go-stream-client
+      app: rmq-go-stream-client-consumers
   revisionHistoryLimit: 10
-  replicas: 30
+  replicas: 100
   template:
     metadata:
       labels:
-        app: rmq-go-stream-client
+        app: rmq-go-stream-client-consumers
     spec:
       containers:
         - name: go-stream-perf-test
           imagePullPolicy: Always
           image: pivotalrabbitmq/go-stream-perf-test
-          args: ["--publishers", "1", "--consumers", "10", "--rate","100","--uris", "rabbitmq-stream://test:test@stream-test.gabriele.svc.cluster.local:5552/"]
+          args: ["--consumers-per-client","5", "--publishers", "0", "--consumers", "5","--uris", "rabbitmq-stream://test:test@stream-test.gabriele.svc.cluster.local:5552/"]
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rmq-go-stream-client-producers
+  labels:
+    app: rmq-go-stream-client-producers
+spec:
+  selector:
+    matchLabels:
+      app: rmq-go-stream-client-producers
+  revisionHistoryLimit: 10
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: rmq-go-stream-client-producers
+    spec:
+      containers:
+        - name: go-stream-perf-test
+          imagePullPolicy: Always
+          image: pivotalrabbitmq/go-stream-perf-test
+          args: ["--publishers-per-client","5", "--publishers", "5", "--consumers", "0", "--rate","100","--uris", "rabbitmq-stream://test:test@stream-test.gabriele.svc.cluster.local:5552/"]
          
